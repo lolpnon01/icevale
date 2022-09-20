@@ -1,0 +1,6 @@
+export * from "./NotFound"
+export * from "./Home"
+export * from "./Game"
+export * from "./Connect"
+export * from "./Contact"
+export * from "./Bug"

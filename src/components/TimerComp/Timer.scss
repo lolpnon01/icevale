@@ -1,0 +1,60 @@
+@import "src/styles/mixins";
+
+.timer-wrapper {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 100px;
+
+  .timer-value-wrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    color: #FFF;
+    background-color: #242424;
+    border-radius: 10px;
+    width: 92px;
+    height: 88px;
+    margin-right: 10px;
+    position: relative;
+
+    .timer-value {
+      font-weight: 700;
+      font-size: 26px;
+      line-height: 32px;
+      text-align: center;
+      z-index: 3;
+
+      @include respond(md) {
+        font-size: 23px;
+        line-height: 27px;
+      }
+    }
+
+    &:last-child {
+      margin-right: 0;
+    }
+
+    @include respond(md) {
+      margin-right: 3px;
+      width: 82px;
+      height: 78px;
+
+      &:last-child {
+        margin-right: 0;
+      }
+    }
+  }
+
+
+  .timer-desc {
+    font-weight: 400;
+    font-size: 10px;
+    line-height: 12px;
+    text-align: center;
+    text-transform: uppercase;
+    color: #D2FFF7;
+    margin-top: 25px;
+    z-index: 3;
+  }
+}

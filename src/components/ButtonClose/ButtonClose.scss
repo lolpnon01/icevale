@@ -1,0 +1,44 @@
+@import "src/styles/mixins";
+
+.custom-button-close {
+  border: none;
+  transition: 0.2s;
+  position: absolute;
+  cursor: none;
+  right: 33px;
+  top: 57px;
+  padding: 0;
+  background-color: initial;
+
+  &-img1 {
+    width: 62px;
+    display: none;
+
+    @include respond(md) {
+      width: 40px;
+    }
+  }
+
+  &-img2 {
+    width: 62px;
+
+    @include respond(md) {
+      width: 40px;
+    }
+  }
+
+  &:hover {
+    .custom-button-close-img1 {
+      display: block;
+    }
+
+    .custom-button-close-img2 {
+      display: none;
+    }
+  }
+
+  @include respond(md) {
+    right: 21px;
+    top: 34px;
+  }
+}

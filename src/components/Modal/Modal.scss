@@ -1,0 +1,82 @@
+@import "src/styles/constants";
+@import "src/styles/mixins";
+
+.modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 100000000;
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  opacity: 0;
+  pointer-events: none;
+
+  &.show {
+    opacity: 1;
+    pointer-events: auto;
+  }
+
+  &-backdrop {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    background: rgba(0, 0, 0, 0.7);
+  }
+
+  &-content {
+    width: 100%;
+    z-index: 1001;
+    height: 100%;
+    position: relative;
+    background-repeat: no-repeat;
+    background-size: cover;
+
+    @include respond(md) {
+    }
+  }
+
+  //&-loading {
+  //  position: absolute;
+  //  left: 0;
+  //  top: 0;
+  //  width: 100%;
+  //  height: 100%;
+  //  background: rgba(0, 0, 0, 0.7);
+  //  backdrop-filter: blur(5px);
+  //  border-radius: 20px;
+  //
+  //  &-img {
+  //    width: 100px;
+  //  }
+  //}
+
+  &-header {
+    margin-bottom: 52px;
+    margin-top: 70px;
+
+    &-title {
+      font-weight: 400;
+      font-size: 18px;
+      line-height: 18px;
+      color: #2D1F0A;
+      text-align: center;
+      font-family: $game-font;
+
+      @include respond(md) {
+        font-weight: 400;
+        font-size: 12px;
+        line-height: 12px;
+      }
+    }
+
+    @include respond(md) {
+      margin-top: 50px;
+      margin-bottom: 35px;
+    }
+  }
+}

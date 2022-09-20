@@ -1,0 +1,79 @@
+@import "src/styles/mixins";
+
+.harvest {
+  .modal-header-title {
+    font-size: 17px!important;
+    line-height: 17px!important;
+
+    @include respond(md) {
+      font-size: 12px!important;
+      line-height: 12px!important;
+    }
+  }
+  &-block {
+    display: flex;
+    justify-content: space-between;
+    margin: 0 72px 16px 72px;
+    font-weight: 400;
+    font-size: 18px;
+    line-height: 18px;
+    color: #2D1F0A;
+
+    &-left {
+      &-title {
+        display: flex;
+        align-items: center;
+        font-weight: 400;
+        font-size: 18px;
+        line-height: 18px;
+        color: #2D1F0A;
+        margin-bottom: 8px;
+
+        img {
+          width: 18px;
+          margin-right: 6px;
+        }
+
+        svg {
+          margin-left: 6px;
+        }
+
+        @include respond(md) {
+          font-size: 12px;
+          line-height: 12px;
+        }
+      }
+
+      &-desc {
+        font-weight: 400;
+        font-size: 14px;
+        line-height: 14px;
+        color: #A38A65;
+
+        @include respond(md) {
+          font-size: 12px;
+          line-height: 12px;
+        }
+      }
+    }
+
+    @include respond(md) {
+      margin: 0 26px 12px 26px;
+      font-size: 12px;
+      line-height: 12px;
+    }
+  }
+
+  &-btns {
+    display: flex;
+    margin-top: 72px;
+    justify-content: center;
+
+    @include respond(md) {
+      margin-top: 42px;
+    }
+  }
+
+  &-btn {
+  }
+}
