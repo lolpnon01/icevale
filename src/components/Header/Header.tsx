@@ -84,7 +84,7 @@ export const Header = ({ scroll = 0, defaultPos, onPlay }: Props): JSX.Element =
               Atlantis
             </a>
             <a
-              href="http://forestvale.ageofmining.com/"
+              href="https://forestvale.vercel.app/"
               target='_blank'
               rel='noreferrer'
               onMouseOver={() => {
@@ -265,7 +265,7 @@ export const Header = ({ scroll = 0, defaultPos, onPlay }: Props): JSX.Element =
               Atlantis
             </a>
             <a
-              href="http://forestvale.ageofmining.com/"
+              href="https://forestvale.vercel.app/"
               target='_blank'
               rel='noreferrer'
               onMouseOver={() => {
